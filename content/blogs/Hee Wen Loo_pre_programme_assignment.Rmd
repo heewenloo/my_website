@@ -86,7 +86,7 @@ plot1<- plot1 +
 plot1
 ```
 
-Secondly, produce a plot for all countries in the *continent* you come from. (Hint: map the `country` variable to the colour aesthetic. You also want to map `country` to the `group` aesthetic, so all points for each country are grouped together).
+Secondly, produce a plot for all countries in Asia. 
 
 ```{r lifeExp_one_continent}
 ggplot(continent_data, mapping = aes(x = year , y =  lifeExp, colour= country, group = country)) +
@@ -106,7 +106,7 @@ ggplot(data = gapminder , mapping = aes(x = year , y =  lifeExp, colour= contine
    NULL
 ```
 
-Given these trends, what can you say about life expectancy since 1952? Again, don't just say what's happening in the graph. Tell some sort of story and speculate about the differences in the patterns.
+Given these trends, what can you say about life expectancy since 1952? 
 
 > Type your answer after this blockquote.
 # Life expectancy has generally been increasing across the different continents since 1952. The life expectancy in Asia has increased the most, as compared to the other continents. This may be attributed to better standards of living, increased access to healthcare and better nutrition in peoples' diets. 
@@ -185,12 +185,8 @@ ggplot(brexit_results, aes(x = born_in_uk, y = leave_share)) +
   NULL
 ```
 
-You have the code for the plots, I would like you to revisit all of them and use the `labs()` function to add an informative title, subtitle, and axes titles to all plots.
-
-What can you say about the relationship shown above? Again, don't just say what's happening in the graph. Tell some sort of story and speculate about the differences in the patterns.
-
 > Type your answer after, and outside, this blockquote.
-There is a strong positive correlation between those born in UK and to vote for Brexit. This may be because of Nationalism, where locals are worried of a dilution in British culture. It may also have been contributed by fears of job loss from foreigners/Europeans.
+From the diagrams above, there is a strong positive correlation between those born in UK and to vote for Brexit. This may be because of Nationalism, where locals are worried of a dilution in British culture. It may also have been contributed by fears of job loss from foreigners/Europeans.
 
 
 # Task 4: Animal rescue incidents attended by the London Fire Brigade
@@ -250,8 +246,6 @@ animal_rescue %>%
 
 ```
 
-Do you see anything strange in these tables? 
-
 Finally, let us have a look at the notional cost for rescuing each of these animals. As the LFB says,
 
 > Please note that any cost included is a notional cost calculated based on the length of time rounded up to the nearest hour spent by Pump, Aerial and FRU appliances at the incident and charged at the current Brigade hourly rate.
@@ -261,19 +255,7 @@ There is two things we will do:
 1. Calculate the mean and median `incident_notional_cost` for each `animal_group_parent`
 2. Plot a boxplot to get a feel for the distribution of `incident_notional_cost` by `animal_group_parent`.
 
-
-Before we go on, however, we need to fix `incident_notional_cost` as it is stored as a `chr`, or character, rather than a number.
-
-```{r, parse_incident_cost,message=FALSE, warning=FALSE}
-
-# what type is variable incident_notional_cost from dataframe `animal_rescue`
-typeof(animal_rescue$incident_notional_cost)
-
-# incident_notional_cost from dataframe `animal_rescue` is now 'double' or numeric
-typeof(animal_rescue$incident_notional_cost)
-```
-
-Now that incident_notional_cost is numeric, let us quickly calculate summary statistics for each animal group. 
+Now, let us quickly calculate summary statistics for each animal group. 
 
 ```{r, stats_on_incident_cost,message=FALSE, warning=FALSE}
 
@@ -316,8 +298,6 @@ base_plot + stat_ecdf(geom = "step", pad = FALSE) +
   scale_y_continuous(labels = scales::percent)
 
 ```
-
-Which of these four graphs do you think best communicates the variability of the `incident_notional_cost` values? Also, can you please tell some sort of story (which animals are more expensive to rescue than others, the spread of values) and speculate about the differences in the patterns.
 
 In my opinion, the box plot is best communicates. It clearly shows the median, range and standard deviations from the median. Ferrets and rabbits are teh most expensive to rescue. This may be because they are more active animals, and therefore require more effort/materials to rescue. 
 

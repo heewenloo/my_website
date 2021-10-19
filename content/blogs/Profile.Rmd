@@ -8,7 +8,7 @@ description: Nullam et orci eu lorem consequat tincidunt vivamus et sagittis mag
   sed magna lacinia magna pellentesque lorem ipsum dolor. Nullam et orci eu lorem
   consequat tincidunt. Vivamus et sagittis tempus.
 draft: false
-image: pic07.jpg
+image: Optimist.jpg
 keywords: ""
 slug: profile
 title: My Profile
@@ -23,7 +23,7 @@ library(janitor)
 
 # About Me
 
-**Background*
+*Background*
 
 I grew up in Singapore, and moved over to London for my undergraduate studies at LSE. I obtained a BSc in Economics, and decided to take on a specialised Master's degree in finance to develop my knowledge of various financial topics. 
 
@@ -35,5 +35,5 @@ Now at LBS, I am excited to see that there is so much support to help me achieve
 
 *Hobbies*
 
-An interesting fact about myself is that I am a certified life-guard. On a personal note, I also enjoy water sports immensely. I started swimming competitively since the age of 5, and have participated in nearly 20 national competitions in Singapore. I also sail the Optimist boat as a hobby. ![Alt text] (/Users/HeeWen/Desktop/Documents/01.School /LBS/Data Analytics/Optimist.jpg)
+An interesting fact about myself is that I am a certified life-guard. On a personal note, I also enjoy water sports immensely. I started swimming competitively since the age of 5, and have participated in nearly 20 national competitions in Singapore. I also sail the Optimist boat as a hobby. 
 

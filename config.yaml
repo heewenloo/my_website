@@ -81,7 +81,7 @@ params:
   tiles:
     enable: yes
     showcase:
-      - image: Optimist.jpg
+      - image: About me.jpg
         subtitle: Introduction of Myself 
         title: About Me
         url: blogs/profile

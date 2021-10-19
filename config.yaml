@@ -1,6 +1,6 @@
 baseURL: https://heewen.netlify.app/
 languageCode: en-us
-title: Portfolio Website
+title: Portfolio Website for Hee Wen Loo
 theme: forty
 googleAnalytics: ''
 disqusShortname: ''
@@ -10,7 +10,7 @@ params:
     subtitle: |-
     #  A RESPONSIVE SITE TEMPLATE DESIGNED BY HTML5 UP
      # AND RELEASED UNDER THE CREATIVE COMMONS.
-    title: Hi, my name is Hee Wen 
+    title: Hi, my name is Hee Wen and I am currently a MFA candidate at the London Business School. 
   blog: {}
   contact:
     address:
@@ -29,7 +29,7 @@ params:
         title: Phone
   custom_css: []
   custom_js: []
-  description: Your description
+  description: Your description abc
   error404:
     heading: Page couldn't be found
     text: Please visit [this page](/)

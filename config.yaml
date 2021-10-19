@@ -81,6 +81,10 @@ params:
   tiles:
     enable: yes
     showcase:
+      - image: Optimist.jpg
+        subtitle: Introduction of Myself 
+        title: About Me
+        url: blogs/profile
       - image: lbs.jpg
         subtitle: R Markdown Practice
         title: Pre-Program Assignment
@@ -89,10 +93,6 @@ params:
         subtitle: Risk Return Example from Kostis
         title: Risk Return of DJIA Stocks
         url: blogs/risk_return
-      - image: pic03.jpg
-        subtitle: Lorem Etiam Nullam
-        title: Magna
-        url: blogs/magna
       - image: pic04.jpg
         subtitle: Nisl Sed Aliquam
         title: Ipsum

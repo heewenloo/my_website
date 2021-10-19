@@ -1,17 +1,17 @@
 ---
-title: "My Profile"
+categories:
+- ""
+- ""
 date: "19 Oct 2021"
 description: Nullam et orci eu lorem consequat tincidunt vivamus et sagittis magna
   sed nunc rhoncus condimentum sem. In efficitur ligula tate urna. Maecenas massa
   sed magna lacinia magna pellentesque lorem ipsum dolor. Nullam et orci eu lorem
   consequat tincidunt. Vivamus et sagittis tempus.
-draft: no
+draft: false
 image: pic07.jpg
-keywords: ''
+keywords: ""
 slug: profile
-categories:
-- ''
-- ''
+title: My Profile
 ---
 
 ```{r load-libraries, warning=FALSE, message=FALSE, echo=FALSE}
@@ -21,9 +21,9 @@ library(here)
 library(janitor)
 ```
 
-**Hee Wen Loo**
+# About Me
 
-*Background*
+**Background*
 
 I grew up in Singapore, and moved over to London for my undergraduate studies at LSE. I obtained a BSc in Economics, and decided to take on a specialised Master's degree in finance to develop my knowledge of various financial topics. 
 

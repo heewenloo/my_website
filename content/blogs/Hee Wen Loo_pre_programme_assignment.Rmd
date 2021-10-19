@@ -10,7 +10,7 @@ description: Nullam et orci eu lorem consequat tincidunt vivamus et sagittis mag
 draft: false
 image: pic07.jpg
 keywords: ""
-slug: aliquam
+slug: Hee-Wen-Loo_pre_programme_assignment
 title: MFA 2022 Pre-Programme Assignment
 ---
 

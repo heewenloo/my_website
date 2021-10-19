@@ -82,13 +82,13 @@ params:
     enable: yes
     showcase:
       - image: lbs.jpg
-        subtitle: Ipsum Dolor Sit Amet
-        title: Aliquam
+        subtitle: R Markdown Practice
+        title: Pre-Program Assignment
+        url: blogs/Hee-Wen-Loo_pre_programme_assignment
+      - image: spices.jpg
+        subtitle: Risk Return Example from Kostis
+        title: Risk Return of DJIA Stocks
         url: blogs/risk_return
-      - image: pic02.jpg
-        subtitle: Feugiat Amet Tempus
-        title: Tempus
-        url: blogs/tempus
       - image: pic03.jpg
         subtitle: Lorem Etiam Nullam
         title: Magna

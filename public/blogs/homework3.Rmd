@@ -1,0 +1,469 @@
+---
+title: "Session 6 Assignment 3"
+date: "19 Oct 2021"
+description: This is the 3rd weekly R Group assignment done together. 
+draft: no
+image: homework.jpg
+keywords: ''
+slug: homework_3
+categories:
+- ''
+- ''
+---
+
+```{r, setup, echo=FALSE}
+knitr::opts_chunk$set(
+  message = FALSE, 
+  warning = FALSE, 
+  tidy=FALSE,     # display code as typed
+  size="small")   # slightly smaller font for code
+options(digits = 3)
+
+# default figure size
+knitr::opts_chunk$set(
+  fig.width=6.75, 
+  fig.height=6.75,
+  fig.align = "center"
+)
+```
+
+
+```{r load-libraries, echo=FALSE}
+library(tidyverse)  # Load ggplot2, dplyr, and all the other tidyverse packages
+library(mosaic)
+library(ggthemes)
+library(GGally)
+library(readxl)
+library(here)
+library(skimr)
+library(janitor)
+library(broom)
+library(tidyquant)
+library(infer)
+library(openintro)
+library(ggrepel)
+```
+
+
+# Youth Risk Behavior Surveillance
+
+Every two years, the Centers for Disease Control and Prevention conduct the [Youth Risk Behavior Surveillance System (YRBSS)](https://www.cdc.gov/healthyyouth/data/yrbs/index.htm) survey, where it takes data from high schoolers (9th through 12th grade), to analyze health patterns. You will work with a selected group of variables from a random sample of observations during one of the years the YRBSS was conducted.
+
+## Loading Data
+
+```{r}
+data(yrbss)
+glimpse(yrbss)
+
+skimr::skim(yrbss)
+```
+
+## Exploratory Data Analysis
+
+*You will first start with analyzing the `weight` of participants in kilograms. Using visualization and summary statistics, describe the distribution of weights. How many observations are we missing weights from?*
+
+1004 missing values. 
+
+```{r, eda_on_weight}
+new_yrbss <- drop_na(yrbss) #Eliminated missing values in the data
+
+weight_data <- new_yrbss %>% 
+  select(weight) %>% 
+  summarise(mean_weight= mean(weight, na.rm= TRUE), 
+            median_weight= median(weight, na.rm= TRUE), 
+            std_weight= sd(weight,na.rm= TRUE),
+            count = n(),
+            t_critical = qt(0.975, count-1),
+            se_weight = std_weight/sqrt(count),
+            margin_of_error = t_critical * se_weight,
+            CI_weight_low = mean_weight - margin_of_error,
+            CI_weight_high = mean_weight + margin_of_error)
+  
+head(weight_data)
+
+ggplot(new_yrbss, aes(x=weight))+
+  geom_density(alpha=0.2) +   
+  theme_bw() +                
+  labs (
+    title = "Density Plot for Weight",
+    y     = "Density")
+
+```
+
+```{r, mutate_and_count}
+ggplot(new_yrbss, aes(y= weight, x= physically_active_7d))+
+  facet_wrap(vars(physically_active_7d)) +
+  geom_boxplot() +  
+  theme_bw() +                
+  labs (
+    title = "Weight vs. Physical Activity",
+    x= "Days of Activity")
+
+school_weight_yrbss <- new_yrbss %>% 
+  mutate(physical_3plus= ifelse(physically_active_7d >=3, "YES", "NO")) %>% 
+  count(physical_3plus) %>% 
+  pivot_wider(names_from= physical_3plus,
+                values_from= n ) 
+
+new_school_weight_yrbss<- school_weight_yrbss %>% 
+  mutate(total= YES + NO ,
+      yes_proportion= YES / total,
+      no_proportion= 1- yes_proportion)
+   
+
+head(new_school_weight_yrbss)
+
+```
+
+*Can you provide a 95% confidence interval for the population proportion of high schools that are NOT active 3 or more days per week?*
+
+```{r}
+
+new_school_weight_yrbss %>% 
+  mutate(se = sqrt(no_proportion * (1-no_proportion)/ total),
+      lower= no_proportion - 1.96*se,
+      upper= no_proportion + 1.96*se
+  )
+
+```
+  
+*Make a boxplot of `physical_3plus` vs. `weight`.*
+
+
+```{r, boxplot}
+
+box_plot_data <- new_yrbss %>% 
+  mutate(physical_3plus= ifelse(physically_active_7d >=3, "YES", "NO"))
+
+ggplot(box_plot_data, aes(y= weight, x= physical_3plus))+
+  geom_boxplot() +  
+  theme_bw() +                
+  labs (
+    title = "Weight vs. Physical Activity",
+    x= "Days of Activity")
+
+
+```
+
+## Confidence Interval
+
+Boxplots show how the medians of the two distributions compare, but we can also compare the means of the distributions using either a confidence interval or a hypothesis test. Note that when we calculate the mean, SD, etc. weight in these groups using the mean function, we must ignore any missing values by setting the `na.rm = TRUE`.
+
+
+```{r, ci_using_formulas}
+yes_no_weight_data <- box_plot_data %>% 
+  group_by(physical_3plus) %>% 
+  summarise(mean_weight= mean(weight), 
+            median_weight= median(weight), 
+            std_weight= sd(weight),
+            count = n(),
+            t_critical = qt(0.975, count-1),
+            se_weight = std_weight/sqrt(count),
+            margin_of_error = t_critical * se_weight,
+            CI_weight_low = mean_weight - margin_of_error,
+            CI_weight_high = mean_weight + margin_of_error)
+
+yes_no_weight_data
+```
+
+## Hypothesis test with formula
+
+*Write the null and alternative hypotheses for testing whether mean weights are different for those who exercise at least times a week and those who don’t.*
+
+Null: mean_weight(YES) = mean_weight(NO)
+Alternative: mean_weight(YES) != mean_weight(NO)
+
+```{r, t_test_using_R}
+
+t.test(weight ~ physical_3plus, data = box_plot_data)
+```
+
+## Hypothesis test with `infer`
+
+```{r, calc_obs_difference}
+obs_diff <- box_plot_data %>%
+  specify(weight ~ physical_3plus) %>%
+  calculate(stat = "diff in means", order = c("YES", "NO"))
+
+obs_diff
+```
+
+```{r, hypothesis_testing_using_infer_package}
+
+null_dist <- box_plot_data %>%
+  # specify variables
+  specify(weight ~ physical_3plus) %>%
+  
+  # assume independence, i.e, there is no difference
+  hypothesize(null = "independence") %>%
+  
+  # generate 1000 reps, of type "permute"
+  generate(reps = 1000, type = "permute") %>%
+  
+  # calculate statistic of difference, namely "diff in means"
+  calculate(stat = "diff in means", order = c("YES", "NO"))
+
+```
+
+Here, `hypothesize` is used to set the null hypothesis as a test for independence, i.e., that there is no difference between the two population means. In one sample cases, the null argument can be set to *point* to test a hypothesis relative to a point estimate.
+
+Also, note that the `type` argument within generate is set to permute, which is the argument when generating a null distribution for a hypothesis test.
+
+We can visualize this null distribution with the following code:
+
+```{r}
+ggplot(data = null_dist, aes(x = stat)) +
+  geom_histogram()
+```
+
+```{r}
+
+null_dist %>% visualize() +
+  shade_p_value(obs_stat = obs_diff, direction = "two-sided")
+
+null_dist %>%
+  get_p_value(obs_stat = obs_diff, direction = "two_sided")
+
+```
+
+
+# IMDB ratings: Differences between directors
+
+```{r directors, echo=FALSE, out.width="100%"}
+knitr::include_graphics(here::here("images", "directors.png"), error = FALSE)
+```
+
+First, I would like you to reproduce this graph. You may find `geom_errorbar()` and `geom_rect()` useful.
+
+*Before anything, write down the null and alternative hypotheses, as well as the resulting test statistic and the associated t-stat or p-value. At the end of the day, what do you conclude?*
+
+Null: mean_rating (Steven Spielberg) = mean_rating (Tim Burton)
+Alternative: mean_rating (Steven Spielberg) != mean_rating (Tim Burton)
+Test-statistic: 3 (>2, so reject Null, true ratings do differ)
+
+```{r load-movies-data}
+movies <- read_csv(here::here("data", "movies.csv"))
+glimpse(movies)
+
+```
+
+
+```{r}
+updated_movie <- movies %>% 
+  filter(director== "Steven Spielberg" | director== "Tim Burton" ) 
+
+new_movie <- updated_movie %>% 
+  group_by(director) %>% 
+  summarise (mean_rating= mean(rating), 
+            median_rating= median(rating), 
+            std_rating= sd(rating),
+            count = n(),
+            t_critical = qt(0.975, count-1),
+            se_rating = std_rating/sqrt(count),
+            margin_of_error = t_critical * se_rating,
+            CI_rating_low = mean_rating - margin_of_error,
+            CI_rating_high = mean_rating + margin_of_error) 
+
+t.test(rating ~ director, data = updated_movie)
+
+movies_dist <- updated_movie %>%
+  specify(rating ~ director) %>%
+  hypothesize(null = "independence") %>%
+  generate(reps = 1000, type = "permute") %>%
+  calculate(stat = "diff in means", order = c("Steven Spielberg", "Tim Burton"))
+
+obs_diff_movie <- updated_movie %>%
+  specify(rating ~ director) %>%
+  calculate(stat = "diff in means", order = c("Steven Spielberg", "Tim Burton"))
+
+movies_dist %>% visualize() +
+  shade_p_value(obs_stat = obs_diff_movie, direction = "two-sided")
+
+new_movie
+round_df <- function(x, digits) {
+    numeric_columns <- sapply(x, mode) == 'numeric'
+    x[numeric_columns] <-  round(x[numeric_columns], digits)
+    x}
+rounded_movie <- round_df(new_movie, 2)
+
+#Reproduce the graph
+
+ggplot(rounded_movie, aes(x= mean_rating, y= director, color= director)) +
+  geom_point(size= 3) +
+  geom_errorbar(aes(xmin= CI_rating_low, xmax= CI_rating_high, color= director), width=0.1, size=1) +
+  geom_rect(aes(xmax= 7.33, xmin= 7.27, ymin=0, ymax= 3, color= "grey") , alpha= 0.3) +
+  theme_bw() +
+  labs( title= "Do Spielberg and Burton have the same mean IMDB ratings?",
+        subtitle= "95% confidence intervals overlap",
+        x= "Mean IMDB rating",
+        y=" Directors") +
+  scale_color_manual(values = c("grey", "brown2", "turquoise3")) +
+  scale_y_discrete(limits = c("Tim Burton","Steven Spielberg")) +
+  theme(legend.position = "none") +
+  geom_text_repel(aes(label= mean_rating), color="black", size=6) +
+  geom_text_repel(aes(label= CI_rating_low), position = position_nudge(x = -0.35), color="black") +
+  geom_text_repel(aes(label= CI_rating_high), position = position_nudge(x = 0.3), color="black")
+
+
+
+```
+# Omega Group plc- Pay Discrimination
+
+At the last board meeting of Omega Group Plc., the headquarters of a large multinational company, the issue was raised that women were being discriminated in the company, in the sense that the salaries were not the same for male and female executives. A quick analysis of a sample of 50 employees (of which 24 men and 26 women) revealed that the average salary for men was about 8,700 higher than for women. This seemed like a considerable difference, so it was decided that a further analysis of the company salaries was warranted. 
+
+You are asked to carry out the analysis. The objective is to find out whether there is indeed a significant difference between the salaries of men and women, and whether the difference is due to discrimination or whether it is based on another, possibly valid, determining factor. 
+
+## Loading the data
+
+```{r load_omega_data}
+omega <- read_csv(here::here("data", "omega.csv"))
+glimpse(omega) # examine the data frame
+
+```
+
+## Relationship Salary - Gender ?
+
+*The data frame `omega`  contains the salaries for the sample of 50 executives in the company. Can you conclude that there is a significant difference between the salaries of the male and female executives?*
+
+Null: mean_salary(female) = mean_salary(male)
+Alternative: mean_salary(female) != mean_salary(male) 
+
+Since the confidence intervals for female and male do not overlap, we reject the null. So, we can conclude that there is a difference between mean_salary of the male and female executives. 
+
+```{r, confint_single_valiables}
+# Summary Statistics of salary by gender
+mosaic::favstats (salary ~ gender, data=omega)
+
+omega_updated <- omega %>% 
+  group_by(gender) %>% 
+  summarise(mean_salary= mean(salary),
+            median_salary= median(salary),
+            std_salary= sd(salary),
+            count = n(),
+            t_critical = qt(0.975, count-1),
+            se_salary = std_salary/sqrt(count),
+            margin_of_error = t_critical * se_salary,
+            CI_salary_low = mean_salary - margin_of_error,
+            CI_salary_high = mean_salary + margin_of_error)
+omega_updated            
+  
+```
+
+```{r, hypothesis_testing}
+# hypothesis testing using t.test() 
+t.test(salary ~ gender, data = omega)
+
+# hypothesis testing using infer package
+omega_dist <- omega %>%
+  specify(salary ~ gender) %>%
+  hypothesize(null = "independence") %>%
+  generate(reps = 1000, type = "permute") %>%
+  calculate(stat = "diff in means", order = c("female", "male"))
+
+obs_diff_gender <- omega %>%
+  specify(salary ~ gender) %>%
+  calculate(stat = "diff in means", order = c("female", "male"))
+
+omega_dist %>% visualize() +
+  shade_p_value(obs_stat = obs_diff_gender, direction = "two-sided")
+
+
+
+```
+
+## Relationship Experience - Gender?
+
+At the board meeting, someone raised the issue that there was indeed a substantial difference between male and female salaries, but that this was attributable to other reasons such as differences in experience. A questionnaire send out to the 50 executives in the sample reveals that the average experience of the men is approximately 21 years, whereas the women only have about 7 years experience on average (see table below).
+
+```{r, experience_stats}
+# Summary Statistics of salary by gender
+favstats (experience ~ gender, data=omega)
+
+```
+
+*Based on this evidence, can you conclude that there is a significant difference between the experience of the male and female executives? Perform similar analyses as in the previous section. Does your conclusion validate or endanger your conclusion about the difference in male and female salaries? * 
+
+Null: mean_experience (male) = mean_experience (female)
+Alternative: mean_experience (male) != mean_experience (female)
+
+Since the t value is -5 and p-value < 0.05, we reject the null. So, yes, there is a difference between the average experience of the male and female executives. 
+
+```{r}
+
+experience_gender <- omega %>% 
+  group_by(gender) %>% 
+  summarise(mean_experience= mean(experience),
+            median_experience= median(experience),
+            std_experience= sd(experience),
+            count = n(),
+            t_critical = qt(0.975, count-1),
+            se_experience = std_experience/sqrt(count),
+            margin_of_error = t_critical * se_experience,
+            CI_experience_low = mean_experience - margin_of_error,
+            CI_experience_high = mean_experience + margin_of_error)
+
+experience_gender
+
+# hypothesis testing using t.test() 
+t.test(experience ~ gender, data = omega)
+
+# hypothesis testing using infer package
+omega_dist_experience <- omega %>%
+  specify(experience ~ gender) %>%
+  hypothesize(null = "independence") %>%
+  generate(reps = 1000, type = "permute") %>%
+  calculate(stat = "diff in means", order = c("female", "male"))
+
+obs_diff_experience <- omega %>%
+  specify(experience ~ gender) %>%
+  calculate(stat = "diff in means", order = c("female", "male"))
+
+omega_dist_experience %>% visualize() +
+  shade_p_value(obs_stat = obs_diff_experience, direction = "two-sided")
+  
+```
+
+
+## Relationship Salary - Experience ?
+
+Someone at the meeting argues that clearly, a more thorough analysis of the relationship between salary and experience is required before any conclusion can be drawn about whether there is any gender-based salary discrimination in the company.
+
+*Analyse the relationship between salary and experience. Draw a scatterplot to visually inspect the data*
+
+```{r, salary_exp_scatter}
+
+ggplot(omega, aes(x= experience, y=salary)) +
+  geom_point() +
+  geom_smooth() +
+  theme_bw() +
+  labs(title= "Salary vs. Experience",
+       x="Experience",
+       y= "Salary")
+
+experience_salary <- omega %>% 
+  group_by(experience) %>% 
+  summarise(mean_salary= mean(salary),
+            median_salary= median(salary),
+            std_salary= sd(salary),
+            count = n(),
+            t_critical = qt(0.975, count-1),
+            se_salary = std_salary/sqrt(count),
+            margin_of_error = t_critical * se_salary,
+            CI_experience_low = mean_salary - margin_of_error,
+            CI_experience_high = mean_salary + margin_of_error)
+
+experience_salary
+
+```
+
+
+## Check correlations between the data
+You can use `GGally:ggpairs()` to create a scatterplot and correlation matrix. Essentially, we change the order our variables will appear in and have the dependent variable (Y), salary, as last in our list. We then pipe the dataframe to `ggpairs()` with `aes` arguments to colour by `gender` and make ths plots somewhat transparent (`alpha  = 0.3`).
+
+```{r, ggpairs}
+omega %>% 
+  select(gender, experience, salary) %>% #order variables they will appear in ggpairs()
+  ggpairs(aes(colour=gender, alpha = 0.3))+
+  theme_bw()
+```
+

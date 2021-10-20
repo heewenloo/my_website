@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Lifestyle on Portfolio Website for Hee Wen Loo</title>
+    <link>https://heewen.netlify.app/blogs/</link>
+    <description>Recent content in Lifestyle on Portfolio Website for Hee Wen Loo</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 31 Oct 2017 22:27:21 -0500</lastBuildDate><atom:link href="https://heewen.netlify.app/blogs/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>My Profile</title>
+      <link>https://heewen.netlify.app/blogs/profile/</link>
+      <pubDate>Tue, 19 Oct 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://heewen.netlify.app/blogs/profile/</guid>
+      <description>About Me Background
+I grew up in Singapore, and moved over to London for my undergraduate studies at LSE. I obtained a BSc in Economics, and decided to take on a specialised Master’s degree in finance to develop my knowledge of various financial topics.
+Education and Career Aspirations
+During my time at LSE, I was elected as the co-chairman of the Asia Investment and Banking Conference, one of the largest student-run conference introducing finance to university students.</description>
+    </item>
+    
+    <item>
+      <title>Session 2 Assignment 1</title>
+      <link>https://heewen.netlify.app/blogs/homework_1/</link>
+      <pubDate>Tue, 19 Oct 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://heewen.netlify.app/blogs/homework_1/</guid>
+      <description>Where Do People Drink The Most Beer, Wine And Spirits? Back in 2014, fivethiryeight.com published an article on alchohol consumption in different countries. The data drinks is available as part of the fivethirtyeight package. Make sure you have installed the fivethirtyeight package before proceeding.
+library(fivethirtyeight) data(drinks) # or download directly # alcohol_direct &amp;lt;- read_csv(&amp;quot;https://raw.githubusercontent.com/fivethirtyeight/data/master/alcohol-consumption/drinks.csv&amp;quot;) What are the variable types? Any missing values we should worry about?
+Two types of variables: Character &amp;amp; Numeric.</description>
+    </item>
+    
+    <item>
+      <title>Session 4 Assignment 2</title>
+      <link>https://heewen.netlify.app/blogs/homework_2/</link>
+      <pubDate>Tue, 19 Oct 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://heewen.netlify.app/blogs/homework_2/</guid>
+      <description>Climate change and temperature anomalies If we wanted to study climate change, we can find data on the Combined Land-Surface Air and Sea-Surface Water Temperature Anomalies in the Northern Hemisphere at NASA’s Goddard Institute for Space Studies. The tabular data of temperature anomalies can be found here
+To define temperature anomalies you need to have a reference, or base, period which NASA clearly states that it is the period between 1951-1980.</description>
+    </item>
+    
+    <item>
+      <title>Session 6 Assignment 3</title>
+      <link>https://heewen.netlify.app/blogs/homework_3/</link>
+      <pubDate>Tue, 19 Oct 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://heewen.netlify.app/blogs/homework_3/</guid>
+      <description>Youth Risk Behavior Surveillance Every two years, the Centers for Disease Control and Prevention conduct the Youth Risk Behavior Surveillance System (YRBSS) survey, where it takes data from high schoolers (9th through 12th grade), to analyze health patterns. You will work with a selected group of variables from a random sample of observations during one of the years the YRBSS was conducted.
+Loading Data data(yrbss) glimpse(yrbss) ## Rows: 13,583 ## Columns: 13 ## $ age &amp;lt;int&amp;gt; 14, 14, 15, 15, 15, 15, 15, 14, 15, 15, 15, 1… ## $ gender &amp;lt;chr&amp;gt; &amp;quot;female&amp;quot;, &amp;quot;female&amp;quot;, &amp;quot;female&amp;quot;, &amp;quot;female&amp;quot;, &amp;quot;fema… ## $ grade &amp;lt;chr&amp;gt; &amp;quot;9&amp;quot;, &amp;quot;9&amp;quot;, &amp;quot;9&amp;quot;, &amp;quot;9&amp;quot;, &amp;quot;9&amp;quot;, &amp;quot;9&amp;quot;, &amp;quot;9&amp;quot;, &amp;quot;9&amp;quot;, &amp;quot;9&amp;quot;, … ## $ hispanic &amp;lt;chr&amp;gt; &amp;quot;not&amp;quot;, &amp;quot;not&amp;quot;, &amp;quot;hispanic&amp;quot;, &amp;quot;not&amp;quot;, &amp;quot;not&amp;quot;, &amp;quot;not&amp;quot;… ## $ race &amp;lt;chr&amp;gt; &amp;quot;Black or African American&amp;quot;, &amp;quot;Black or Africa… ## $ height &amp;lt;dbl&amp;gt; NA, NA, 1.</description>
+    </item>
+    
+    <item>
+      <title>Risk-Return of DJIA stocks</title>
+      <link>https://heewen.netlify.app/blogs/risk_return/</link>
+      <pubDate>Thu, 30 Sep 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://heewen.netlify.app/blogs/risk_return/</guid>
+      <description>Returns of financial stocks Next, let’s choose the Dow Jones Industrial Average (DJIA) stocks and their ticker symbols and download some data. Besides the thirty stocks that make up the DJIA, we will also add SPY which is an SP500 ETF (Exchange Traded Fund).
+We will use the rvest package to scrape the Wikipedia page for the constituents of DJIA
+djia_url &amp;lt;- &amp;quot;https://en.wikipedia.org/wiki/Dow_Jones_Industrial_Average&amp;quot; #get tables that exist on URL tables &amp;lt;- djia_url %&amp;gt;% read_html() %&amp;gt;% html_nodes(css=&amp;quot;table&amp;quot;) # parse HTML tables into a dataframe called djia.</description>
+    </item>
+    
+    <item>
+      <title>Aliquam</title>
+      <link>https://heewen.netlify.app/blogs/aliquam/</link>
+      <pubDate>Tue, 31 Oct 2017 22:42:51 -0500</pubDate>
+      
+      <guid>https://heewen.netlify.app/blogs/aliquam/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Tempus</title>
+      <link>https://heewen.netlify.app/blogs/tempus/</link>
+      <pubDate>Tue, 31 Oct 2017 22:26:13 -0500</pubDate>
+      
+      <guid>https://heewen.netlify.app/blogs/tempus/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Magna</title>
+      <link>https://heewen.netlify.app/blogs/magna/</link>
+      <pubDate>Tue, 31 Oct 2017 22:26:09 -0500</pubDate>
+      
+      <guid>https://heewen.netlify.app/blogs/magna/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Ipsum</title>
+      <link>https://heewen.netlify.app/blogs/ipsum/</link>
+      <pubDate>Tue, 31 Oct 2017 21:28:43 -0500</pubDate>
+      
+      <guid>https://heewen.netlify.app/blogs/ipsum/</guid>
+      <description>Nullam et orci eu lorem consequat tincidunt vivamus et sagittis magna sed nunc rhoncus condimentum sem. In efficitur ligula tate urna. Maecenas massa sed magna lacinia magna pellentesque lorem ipsum dolor. Nullam et orci eu lorem consequat tincidunt. Vivamus et sagittis tempus.</description>
+    </item>
+    
+    <item>
+      <title>MFA 2022 Pre-Programme Assignment</title>
+      <link>https://heewen.netlify.app/blogs/hee-wen-loo_pre_programme_assignment/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://heewen.netlify.app/blogs/hee-wen-loo_pre_programme_assignment/</guid>
+      <description>Task 1: Short biography written using markdown Hee Wen Loo
+Nationality: Singapore
+Gender: Female
+My name is Hee Wen, and I am currently reading my Masters in Financial Analysis at the London Business School. I was born and raised in Singapore, but moved to London for my undergraduate studies. I have recently completed my Bachelors in Economics from the London School of Economics.
+I have a wide range of hobbies, which include the following:</description>
+    </item>
+    
+    <item>
+      <title>MFA 2022 Pre-Programme Assignment</title>
+      <link>https://heewen.netlify.app/blogs/hee-wen-loo_pre_programme_assignment/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://heewen.netlify.app/blogs/hee-wen-loo_pre_programme_assignment/</guid>
+      <description>Task 1: Short biography written using markdown Hee Wen Loo
+Nationality: Singapore
+Gender: Female
+My name is Hee Wen, and I am currently reading my Masters in Financial Analysis at the London Business School. I was born and raised in Singapore, but moved to London for my undergraduate studies. I have recently completed my Bachelors in Economics from the London School of Economics.
+I have a wide range of hobbies, which include the following:</description>
+    </item>
+    
+  </channel>
+</rss>

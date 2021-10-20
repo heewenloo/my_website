@@ -3,10 +3,7 @@ categories:
 - ""
 - ""
 date: "19 Oct 2021"
-description: Nullam et orci eu lorem consequat tincidunt vivamus et sagittis magna
-  sed nunc rhoncus condimentum sem. In efficitur ligula tate urna. Maecenas massa
-  sed magna lacinia magna pellentesque lorem ipsum dolor. Nullam et orci eu lorem
-  consequat tincidunt. Vivamus et sagittis tempus.
+description: Brief introduction about myself 
 draft: false
 image: Optimist.jpg
 keywords: ""

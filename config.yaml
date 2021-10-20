@@ -23,16 +23,16 @@ params:
     email:
       - email: hloo.mfa2022@london.edu
         title: Email
-    enable: yes
+    enable: no
     phone:
-      - phone: (000) 000-0000 x1234
+      - phone: (000) 123-4567
         title: Phone
   custom_css: []
   custom_js: []
   description: Your description abc
-  error404:
-    heading: Page couldn't be found
-    text: Please visit [this page](/)
+ # error404:
+  #  heading: Page couldn't be found
+   # text: Please visit [this page](/)
   favicon: favicon.ico
   footer:
     copyright: Company Name
@@ -73,11 +73,11 @@ params:
      #   url: blogs
     #  - name: Generic Blog
      #   url: blogs/ipsum
-      #- name: Elements
-      #  url: elements.html
+   #   - name: Elements
+    #    url: elements.html
     menu: Menu
-    subtitle: By HTML5 Up
-    title: Forty
+    subtitle: By Hee 
+    title: Portfolio Website
   tiles:
     enable: yes
     showcase:

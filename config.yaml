@@ -48,7 +48,7 @@ params:
       #- icon: fa-facebook
         label: Facebook
         url: https://www.facebook.com/heewen.loo.9/
-      -# icon: fa-instagram
+      #- icon: fa-instagram
        # label: Instagram
         #url: https://www.instagram.com
     #  - icon: fa-github

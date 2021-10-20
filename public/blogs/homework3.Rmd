@@ -1,9 +1,9 @@
 ---
 title: "Session 6 Assignment 3"
 date: "19 Oct 2021"
-description: This is the 3rd weekly R Group assignment done together. 
+description: This is the 3rd weekly R Group assignment done together.
 draft: no
-image: homework.jpg
+image: h3.jpg
 keywords: ''
 slug: homework_3
 categories:

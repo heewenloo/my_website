@@ -61,7 +61,7 @@ params:
   name: Your name
   navigation:
     button1:
-      - name: Get Started
+      - name: Blog Posts
         url: blogs
   #  button2:
    #   - name: Log In

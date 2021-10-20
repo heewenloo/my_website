@@ -100,7 +100,7 @@ params:
       - image: two.jpg
         subtitle: 2nd R Group Assignment
         title: Homework 2
-        url: blogs/ipsum
+        url: blogs/homework_2
       - image: three.jpg
         subtitle: 3rd R Group Assignment
         title: Homework 3

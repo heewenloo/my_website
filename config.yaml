@@ -6,8 +6,8 @@ googleAnalytics: ''
 disqusShortname: ''
 params:
   banner:
-    buttonText: Get Started
-    subtitle: |-
+   # buttonText: Get Started
+  #  subtitle: |-
     #  A RESPONSIVE SITE TEMPLATE DESIGNED BY HTML5 UP
      # AND RELEASED UNDER THE CREATIVE COMMONS.
     title: Hi, my name is Hee Wen!

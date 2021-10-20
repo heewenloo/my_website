@@ -23,7 +23,7 @@ params:
     email:
       - email: hloo.mfa2022@london.edu
         title: Email
-    enable: yes
+    enable: no
     phone:
       - phone: (000) 123-4567
         title: Phone
@@ -45,7 +45,7 @@ params:
      # - icon: fa-twitter
     # label: Twitter
       #  url: https://www.twitter.com
-      #- icon: fa-facebook
+      - icon: fa-facebook
         label: Facebook
         url: https://www.facebook.com/heewen.loo.9/
       #- icon: fa-instagram

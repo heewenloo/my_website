@@ -18,8 +18,8 @@ params:
         country: United Kingdom
         street: ABC Street
         title: Address
-  #  buttonClear: Clear
-   # buttonSend: Send message
+    buttonClear: Clear
+    buttonSend: Send message
     email:
       - email: hloo.mfa2022@london.edu
         title: Email

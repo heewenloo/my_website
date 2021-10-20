@@ -93,18 +93,18 @@ params:
         subtitle: Risk Return Example from Kostis
         title: Risk Return of DJIA Stocks
         url: blogs/risk_return
-      - image: pic04.jpg
+      - image: one.jpg
         subtitle: Nisl Sed Aliquam
-        title: Ipsum
-        url: blogs/ipsum
-      - image: pic05.jpg
+        title: Homework 1
+        url: blogs/homework_1
+      - image: two.jpg
         subtitle: Ipsum Dolor Sit Amet
-        title: Consequat
+        title: Homework 2
         url: blogs/ipsum
-      - image: pic06.jpg
+      - image: three.jpg
         subtitle: Feugiat Amet Tempus
-        title: Etiam
-        url: blogs/ipsum
+        title: Homework 3
+        url: blogs/homework_3
   two:
     buttonText: Get Started
     enable: yes
